@@ -2,10 +2,19 @@
   "name": "multiplayer-game-with-websockets",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "scripts": {
-    "start": "node src"
+    "start": "node src/index.mjs"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.11.5",
+    "@types/websocket": "^1.0.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "websocket": "^1.0.32"
+  }
 }
