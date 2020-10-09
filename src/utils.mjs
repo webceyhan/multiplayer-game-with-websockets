@@ -14,9 +14,9 @@ export const guid = () => {
     return groups.join('-').toLowerCase();
 };
 
-export const parseMessage = ({ utf8Data }) => {
+export const parseMessage = ( message) => {
     try {
-        return JSON.parse(utf8Data);
+        return JSON.parse(message);
     } catch (error) {
         return null;
     }

@@ -1,44 +1,30 @@
-import http from 'http';
-import websocket from 'websocket';
+import Websocket from 'ws';
 
 import { guid, parseMessage, sendMessage } from './utils.mjs';
 
 const port = 9090;
 
 // define hashmaps
-const clients = {};
 const games = {};
 const maxPlayers = 3;
 const playerColors = ['red', 'green', 'blue'];
 
-// create normal http server
-const httpServer = http.createServer();
+// create websocket server
+const wsServer = new Websocket.Server({ port });
+console.log(`websocket server listening on ${port}`);
 
-// start listening to port
-httpServer.listen(port, () => {
-    console.log(`websocket server listening on ${port}`);
-});
-
-// create websocket server based on the http server
-const wsServer = new websocket.server({ httpServer });
-
-// upgrade to websocket protocol on request
-wsServer.on('request', (request) => {
-    const connection = request.accept(null, request.origin);
-
+// define client connection handler
+wsServer.on('connection', (ws) => {
     // generate new client id
     const clientId = guid();
 
-    // add to clients hashmap
-    clients[clientId] = { connection };
-
     // create new payload and send
-    sendMessage(connection, { clientId, method: 'connect' });
+    sendMessage(ws, { clientId, method: 'connect' });
 
     // define event listeners
-    connection.on('open', () => console.log('opened!'));
-    connection.on('close', () => console.log('closed!'));
-    connection.on('message', (message) => {
+    ws.on('open', () => console.log('opened!'));
+    ws.on('close', () => console.log('closed!'));
+    ws.on('message', (message) => {
         // when message received from the client
         const data = parseMessage(message);
         console.log(data);
@@ -50,7 +36,7 @@ wsServer.on('request', (request) => {
 
                 games[gameId] = game;
 
-                sendMessage(connection, { method: 'create', game });
+                sendMessage(ws, { method: 'create', game });
                 break;
             }
 
@@ -71,7 +57,7 @@ wsServer.on('request', (request) => {
             }
 
             case 'play': {
-                const { clientId, gameId, ballId, color } = data;
+                const { gameId, ballId, color } = data;
                 const game = games[gameId];
 
                 // update state
@@ -86,8 +72,5 @@ wsServer.on('request', (request) => {
 });
 
 const broadcastGameState = (method, game) => {
-    game.clients.forEach((c) => {
-        const ws = clients[c.clientId].connection;
-        sendMessage(ws, { method, game });
-    });
+    wsServer.clients.forEach((ws) => sendMessage(ws, { method, game }));
 };
