@@ -1,7 +1,7 @@
 import Websocket from 'ws';
 
-import { Game } from './game.mjs';
-import { guid, parseMessage, sendMessage } from './utils.mjs';
+import { Game, Player } from './game.mjs';
+import { parseMessage, sendMessage } from './utils.mjs';
 
 const port = 9090;
 
@@ -11,11 +11,11 @@ console.log(`websocket server listening on ${port}`);
 
 // define client connection handler
 wsServer.on('connection', (ws) => {
-    // generate new client id
-    const clientId = guid();
+    // create new player
+    const player = new Player();
 
     // create new payload and send
-    sendMessage(ws, { clientId, method: 'connect' });
+    sendMessage(ws, { method: 'connect', player });
 
     // define event listeners
     ws.on('open', () => console.log('opened!'));
@@ -37,7 +37,7 @@ wsServer.on('connection', (ws) => {
                 try {
                     const game = Game.find(data.gameId);
 
-                    game.join(clientId);
+                    game.join(player);
                     broadcastGameState('join', game);
                 } catch (error) {
                     console.log(error.message);
@@ -50,7 +50,7 @@ wsServer.on('connection', (ws) => {
                 const { gameId, ballId } = data;
                 const game = Game.find(gameId);
 
-                game.play(clientId, ballId);
+                game.play(player.id, ballId);
                 broadcastGameState('play', game);
                 break;
             }

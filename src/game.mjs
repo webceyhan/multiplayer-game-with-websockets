@@ -1,3 +1,4 @@
+import { Player } from './player.mjs';
 import { guid } from './utils.mjs';
 
 const MAX_PLAYERS = 3;
@@ -11,7 +12,7 @@ export class Game {
         /** @type {string} */
         this.id = guid();
 
-        /** @type {{id:string, color:string}[]} */
+        /** @type {Player[]} */
         this.players = [];
 
         /** @type {number} */
@@ -29,18 +30,18 @@ export class Game {
     }
 
     /**
-     * @param {string} playerId
+     * @param {Player} player
      * @returns {void}
      */
-    join(playerId) {
+    join(player) {
         if (this.isFull) {
             throw Error('game is full');
         }
 
         const index = this.players.length;
-        const color = PLAYER_COLORS[index];
+        player.color = PLAYER_COLORS[index];
 
-        this.players.push({ id: playerId, color });
+        this.players.push(player);
     }
 
     /**

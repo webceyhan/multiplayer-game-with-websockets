@@ -95,7 +95,7 @@ ws.onmessage = (event) => {
 
     switch (data.method) {
         case 'connect':
-            playerId = data.playerId;
+            playerId = data.player.id;
             console.log(`client id set to ${playerId}`);
             break;
 
