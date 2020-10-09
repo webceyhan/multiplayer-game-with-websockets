@@ -2,7 +2,7 @@
  * define constants
  */
 let gameId = null;
-let clientId = null;
+let playerId = null;
 let playerColor = null;
 
 // DOM /////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ const clearDiv = (div) => {
     }
 };
 
-const createPlayer = (id, color) => {
+const createPlayer = ({ id, color }) => {
     const div = document.createElement('div');
 
     div.textContent = id;
@@ -49,7 +49,7 @@ const createBall = (ballId) => {
     btn.addEventListener('click', (e) => {
         btn.style.background = playerColor;
 
-        sendMessage('play', { clientId, gameId, ballId, color: playerColor });
+        sendMessage('play', { gameId, ballId });
     });
 
     return btn;
@@ -68,13 +68,13 @@ const initUI = () => {
  * init events
  */
 createBtn.addEventListener('click', (e) => {
-    sendMessage('create', { clientId });
+    sendMessage('create');
     joinBtn.classList.remove('disabled');
 });
 
 joinBtn.addEventListener('click', (e) => {
     gameId = gameIdInput.value;
-    sendMessage('join', { clientId, gameId });
+    sendMessage('join', { gameId });
 });
 
 /**
@@ -95,8 +95,8 @@ ws.onmessage = (event) => {
 
     switch (data.method) {
         case 'connect':
-            clientId = data.clientId;
-            console.log(`client id set to ${clientId}`);
+            playerId = data.playerId;
+            console.log(`client id set to ${playerId}`);
             break;
 
         case 'create':
@@ -114,14 +114,14 @@ ws.onmessage = (event) => {
 
             gameId = game.id;
 
-            game.clients.forEach((c) => {
+            game.players.forEach((player) => {
                 // set own color
-                if (c.clientId == clientId) {
-                    playerColor = c.color;
+                if (player.id == playerId) {
+                    playerColor = player.color;
                 }
 
-                const player = createPlayer(c.clientId, c.color);
-                playersDiv.appendChild(player);
+                const playerDiv = createPlayer(player);
+                playersDiv.appendChild(playerDiv);
             });
 
             // fill the board with balls

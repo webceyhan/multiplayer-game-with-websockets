@@ -1,13 +1,9 @@
 import Websocket from 'ws';
 
+import { Game } from './game.mjs';
 import { guid, parseMessage, sendMessage } from './utils.mjs';
 
 const port = 9090;
-
-// define hashmaps
-const games = {};
-const maxPlayers = 3;
-const playerColors = ['red', 'green', 'blue'];
 
 // create websocket server
 const wsServer = new Websocket.Server({ port });
@@ -31,40 +27,31 @@ wsServer.on('connection', (ws) => {
 
         switch (data.method) {
             case 'create': {
-                const gameId = guid();
-                const game = { id: gameId, balls: 20, clients: [], state: {} };
-
-                games[gameId] = game;
+                const game = Game.create();
 
                 sendMessage(ws, { method: 'create', game });
                 break;
             }
 
             case 'join': {
-                const game = games[data.gameId];
+                try {
+                    const game = Game.find(data.gameId);
 
-                if (game.clients.length >= maxPlayers) {
-                    // sorry max players reached!
-                    return;
+                    game.join(clientId);
+                    broadcastGameState('join', game);
+                } catch (error) {
+                    console.log(error.message);
                 }
-
-                const color = playerColors[game.clients.length];
-                game.clients.push({ clientId, color });
-
-                broadcastGameState('join', game);
 
                 break;
             }
 
             case 'play': {
-                const { gameId, ballId, color } = data;
-                const game = games[gameId];
+                const { gameId, ballId } = data;
+                const game = Game.find(gameId);
 
-                // update state
-                game.state[ballId] = color;
-
+                game.play(clientId, ballId);
                 broadcastGameState('play', game);
-
                 break;
             }
         }
