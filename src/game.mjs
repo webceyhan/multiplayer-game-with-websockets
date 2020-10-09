@@ -33,13 +33,17 @@ export class Game {
      * @param {Player} player
      * @returns {void}
      */
-    join(player) {
+    addPlayer(player) {
         if (this.isFull) {
-            throw Error('game is full');
+            throw 'game is full';
         }
 
-        const index = this.players.length;
-        player.color = PLAYER_COLORS[index];
+        if (this.players.indexOf(player) >= 0) {
+            throw 'player is already in game';
+        }
+
+        // set player color from the position in game
+        player.color = PLAYER_COLORS[this.players.length];
 
         this.players.push(player);
     }

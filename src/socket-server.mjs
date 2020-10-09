@@ -1,6 +1,7 @@
 import Websocket from 'ws';
 
-import { Game, Player } from './game.mjs';
+import { Game } from './game.mjs';
+import { Player } from './player.mjs';
 import { parseMessage, sendMessage } from './utils.mjs';
 
 const port = 9090;
@@ -36,8 +37,8 @@ wsServer.on('connection', (ws) => {
             case 'join': {
                 try {
                     const game = Game.find(data.gameId);
+                    game.addPlayer(player);
 
-                    game.join(player);
                     broadcastGameState('join', game);
                 } catch (error) {
                     console.log(error.message);
