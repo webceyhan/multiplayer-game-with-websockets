@@ -1,5 +1,5 @@
 import { Player } from './player';
-import { Hash, guid } from './utils';
+import { Hash, guid } from '../utils';
 
 const MAX_PLAYERS = 3;
 const PLAYER_COLORS = ['red', 'green', 'blue'];

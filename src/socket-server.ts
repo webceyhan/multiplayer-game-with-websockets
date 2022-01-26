@@ -1,7 +1,6 @@
 import Websocket from 'ws';
 
-import { Game } from './game';
-import { Player } from './player';
+import { Game, Player } from './game';
 import { parseMessage, sendMessage } from './utils';
 
 const port = 9090;
