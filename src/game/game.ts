@@ -19,6 +19,15 @@ export class Game {
         return this.players.indexOf(player) >= 0;
     }
 
+    findPlayer(id: string) {
+        const player = this.players.find((p) => p.id == id);
+
+        // throw error if player was not found
+        if (!player) throw new Error('Player Not Found!');
+
+        return player;
+    }
+
     addPlayer(player: Player): void {
         if (this.isFull) {
             throw 'game is full';
@@ -32,14 +41,8 @@ export class Game {
     }
 
     play(playerId: string, ballId: number): void {
-        // find player
-        const player = this.players.find((p) => p.id == playerId);
-
-        // throw error if player was not found
-        if (!player) throw new Error('Player Not Found!');
-
         // update state
-        this.state[`${ballId}`] = player.color;
+        this.state[`${ballId}`] = this.findPlayer(playerId).color;
     }
 
     // STATIC HELPERS //////////////////////////////////////////////////////////////////////////////
