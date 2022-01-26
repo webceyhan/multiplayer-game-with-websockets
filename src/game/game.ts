@@ -37,6 +37,9 @@ export class Game {
         // find player
         const player = this.players.find((p) => p.id == playerId);
 
+        // throw error if player was not found
+        if (!player) throw new Error('Player Not Found!');
+
         // update state
         this.state[`${ballId}`] = player.color;
     }
