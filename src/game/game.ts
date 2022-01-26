@@ -1,8 +1,5 @@
-import { Player } from './player';
 import { Hash, guid } from '../utils';
-
-const MAX_PLAYERS = 3;
-const PLAYER_COLORS = ['red', 'green', 'blue'];
+import { Player, MAX_PLAYERS, PLAYER_COLORS } from './player';
 
 export class Game {
     static all: Hash<Game> = {};
