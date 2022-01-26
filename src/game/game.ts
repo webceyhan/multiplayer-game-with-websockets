@@ -1,5 +1,5 @@
 import { Hash, uuid } from '../utils';
-import { Player, MAX_PLAYERS, PLAYER_COLORS } from './player';
+import { Player, MAX_PLAYERS } from './player';
 
 export class Game {
     static all: Hash<Game> = {};
@@ -15,19 +15,20 @@ export class Game {
         return this.players.length === MAX_PLAYERS;
     }
 
+    hasPlayer(player: Player) {
+        return this.players.indexOf(player) >= 0;
+    }
+
     addPlayer(player: Player): void {
         if (this.isFull) {
             throw 'game is full';
         }
 
-        if (this.players.indexOf(player) >= 0) {
+        if (this.hasPlayer(player)) {
             throw 'player is already in game';
         }
 
-        // set player color from the position in game
-        player.color = PLAYER_COLORS[this.players.length];
-
-        this.players.push(player);
+        player.join(this.players);
     }
 
     play(playerId: string, ballId: number): void {
