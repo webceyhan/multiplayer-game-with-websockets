@@ -1,11 +1,11 @@
-import { Hash, guid } from '../utils';
+import { Hash, uuid } from '../utils';
 import { Player, MAX_PLAYERS, PLAYER_COLORS } from './player';
 
 export class Game {
     static all: Hash<Game> = {};
 
     constructor(
-        public id = guid(),
+        public id = uuid(),
         public state: Hash = {},
         public players: Player[] = [],
         public balls = 20

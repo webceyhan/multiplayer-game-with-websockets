@@ -1,7 +1,7 @@
-import { guid } from '../utils';
+import { uuid } from '../utils';
 
 export class Player {
-    constructor(public id = guid(), public color?: string) {}
+    constructor(public id = uuid(), public color?: string) {}
 }
 
 export const MAX_PLAYERS = 3;
