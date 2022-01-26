@@ -1,9 +1,11 @@
 import { uuid } from '../utils';
 
-export class Player {
-    constructor(public id = uuid(), public color?: string) {}
-}
+type Color = 'blue' | 'green' | 'red';
 
 export const MAX_PLAYERS = 3;
 
-export const PLAYER_COLORS = ['red', 'green', 'blue'];
+export const PLAYER_COLORS: Color[] = ['blue', 'green', 'red'];
+
+export class Player {
+    constructor(public id = uuid(), public color?: Color) {}
+}
