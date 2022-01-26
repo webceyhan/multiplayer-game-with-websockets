@@ -10,5 +10,5 @@ app.use(express.static('public'));
 
 // listen
 app.listen(port, () => {
-    console.log(`http server listening on ${port}`);
+    console.log(`server started at http://localhost:${port}`);
 });

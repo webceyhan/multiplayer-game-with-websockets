@@ -1,7 +1,11 @@
+export interface Hash<T = any> {
+    [key: string]: T;
+}
+
 const s4 = () =>
     (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 
-export const guid = () => {
+export const guid = (): string => {
     const groups = [
         s4() + s4(), // xxxxxxxx
         s4(), // xxxx
@@ -14,7 +18,7 @@ export const guid = () => {
     return groups.join('-').toLowerCase();
 };
 
-export const parseMessage = ( message) => {
+export const parseMessage = (message: string) => {
     try {
         return JSON.parse(message);
     } catch (error) {
@@ -22,6 +26,6 @@ export const parseMessage = ( message) => {
     }
 };
 
-export const sendMessage = (ws, message) => {
+export const sendMessage = (ws: any, message: any) => {
     ws.send(JSON.stringify(message));
 };
