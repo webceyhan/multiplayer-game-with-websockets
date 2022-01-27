@@ -31,7 +31,11 @@
             <div class="container">
                 <!-- Toolbar -->
                 <div class="btn-toolbar mb-5">
-                    <button id="create-btn" class="btn btn-lg btn-primary mr-3">
+                    <button
+                        class="btn btn-lg btn-primary mr-3"
+                        @click="onCreate"
+                        :disabled="ready"
+                    >
                         Create New Game
                     </button>
 
@@ -39,9 +43,18 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">ID</div>
                         </div>
-                        <input id="game-id" class="form-control" type="text" />
+                        <input
+                            class="form-control"
+                            type="text"
+                            v-model="game.id"
+                            disabled
+                        />
                         <div class="input-group-append">
-                            <button id="join-btn" class="btn btn-primary">
+                            <button
+                                class="btn btn-primary"
+                                @click="onJoin"
+                                :disabled="!ready || started"
+                            >
                                 Join
                             </button>
                         </div>
@@ -52,15 +65,35 @@
                 <section class="mb-5">
                     <h1 class="display-5 text-muted">Players</h1>
 
-                    <div
-                        id="players"
+                    <ul
                         class="list-group list-group-horizontal justify-content-between"
-                    ></div>
+                    >
+                        <li
+                            class="list-group-item"
+                            v-for="(player,i) in players"
+                            :key="i"
+                            :style="{background: player.color}"
+                        >
+                            <h6>{{player.name}}</h6>
+                            <small>{{player.id}}</small>
+                        </li>
+                    </ul>
                 </section>
 
                 <!-- Board -->
                 <section class="mb-5">
-                    <div id="board" class="shadow"></div>
+                    <div class="shadow">
+                        <button
+                            class="btn btn-secondary border-dark flex-fill w-25 p-5"
+                            v-for="(color,i) in balls"
+                            :key="i"
+                            :style="{background: color}"
+                            @click="onPlay(i)"
+                            :disabled="!started"
+                        >
+                            {{i + 1}}
+                        </button>
+                    </div>
                 </section>
             </div>
         </main>
