@@ -86,34 +86,35 @@ initUI();
 
 const ws = new WebSocket('ws://localhost:9090');
 
-const sendMessage = (method, message) => {
-    ws.send(JSON.stringify({ method, ...message }));
+const sendMessage = (name, payload) => {
+    ws.send(JSON.stringify({ name, payload }));
 };
 
-ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
+ws.onmessage = (message) => {
+    const event = JSON.parse(message.data);
 
-    switch (data.method) {
+    switch (event.name) {
         case 'connect':
-            playerId = data.player.id;
+            playerId = event.payload.id;
             console.log(`client id set to ${playerId}`);
             break;
 
         case 'create':
-            gameId = data.game.id;
+            gameId = event.payload.id;
             gameIdInput.value = gameId;
 
             console.log(
-                `game created with id ${gameId} and ${data.game.balls} balls`
+                `game created with id ${gameId} and ${event.payload.balls} balls`
             );
             break;
 
         case 'join': {
             initUI();
-            const game = data.game;
+            const game = event.payload;
+            console.log(game)
 
             gameId = game.id;
-
+            
             game.players.forEach((player) => {
                 // set own color
                 if (player.id == playerId) {
@@ -134,7 +135,7 @@ ws.onmessage = (event) => {
         }
 
         case 'play': {
-            const { state } = data.game;
+            const { state } = event.payload;
 
             Object.entries(state).forEach(([ballId, color]) => {
                 const ball = document.getElementById('ball' + ballId);

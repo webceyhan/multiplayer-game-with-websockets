@@ -1,2 +1,4 @@
-import './http-server';
-import './socket-server';
+import { createHttpServer, createSocketServer } from './server';
+
+createHttpServer();
+createSocketServer();
