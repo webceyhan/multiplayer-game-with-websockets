@@ -21,4 +21,12 @@ export class Player {
         players.push(this); // attach
         this.number = players.length; // assing nr
     }
+
+    toJSON() {
+        return {
+            ...this,
+            name: this.name,
+            color: this.color,
+        };
+    }
 }
