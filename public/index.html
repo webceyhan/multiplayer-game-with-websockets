@@ -18,36 +18,52 @@
 
         <title>Hello, world!</title>
     </head>
-    <body>
-        <div class="container py-5">
-            <h1 class="display-4">Ball Game</h1>
-            <br />
+    <body class="bg-dark text-light">
+        <header class="my-4">
+            <div class="container">
+                <h1 class="display-3">Ball Game</h1>
 
-            <div class="btn-toolbar">
-                <button id="create-btn" class="btn btn-lg btn-primary mr-2">
-                    new game
-                </button>
-                <button id="join-btn" class="btn btn-lg btn-primary mr-2">
-                    join
-                </button>
-
-                <div class="input-group input-group-lg w-50">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">game id</div>
-                    </div>
-                    <input id="game-id" class="form-control" type="text" />
-                </div>
+                <hr class="bg-secondary" />
             </div>
+        </header>
 
-            <br />
+        <main>
+            <div class="container">
+                <!-- Toolbar -->
+                <div class="btn-toolbar mb-5">
+                    <button id="create-btn" class="btn btn-lg btn-primary mr-3">
+                        Create New Game
+                    </button>
 
-            <h3>Players</h3>
-            <div id="players" class="list-group list-group-horizontal"></div>
+                    <div class="input-group input-group-lg flex-fill">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">ID</div>
+                        </div>
+                        <input id="game-id" class="form-control" type="text" />
+                        <div class="input-group-append">
+                            <button id="join-btn" class="btn btn-primary">
+                                Join
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-            <br />
+                <!-- Players -->
+                <section class="mb-5">
+                    <h1 class="display-5 text-muted">Players</h1>
 
-            <div id="board" class="shadow"></div>
-        </div>
+                    <div
+                        id="players"
+                        class="list-group list-group-horizontal justify-content-between"
+                    ></div>
+                </section>
+
+                <!-- Board -->
+                <section class="mb-5">
+                    <div id="board" class="shadow"></div>
+                </section>
+            </div>
+        </main>
 
         <!-- game logic -->
         <script src="main.js"></script>
