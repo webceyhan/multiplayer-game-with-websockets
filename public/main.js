@@ -19,31 +19,43 @@ const boardDiv = document.getElementById('board');
 /**
  * helpers
  */
+const createElement = (tag, text) => {
+    const el = document.createElement(tag);
+    el.textContent = text;
+
+    return el;
+};
+
 const clearDiv = (div) => {
     while (div.firstChild) {
         div.removeChild(div.firstChild);
     }
 };
 
-const createPlayer = ({ id, color }) => {
-    const div = document.createElement('div');
+const createPlayer = ({ id, name, color }) => {
+    const div = createElement('div');
 
-    div.textContent = id;
     div.style.background = color;
     div.classList.add('list-group-item');
+    div.appendChild(createElement('h6', name));
+    div.appendChild(createElement('small', id));
 
     return div;
 };
 
 const createBall = (ballId) => {
-    const btn = document.createElement('button');
+    const btn = createElement('button', ballId);
 
     btn.id = `ball${ballId}`;
     btn.tag = ballId;
-    btn.textContent = ballId;
-    // btn.style.width = '100px';
-    // btn.style.height = '100px';
-    btn.classList.add('btn', 'btn-secondary', 'border-dark', 'flex-fill', 'w-25', 'p-5');
+    btn.classList.add(
+        'btn',
+        'btn-secondary',
+        'border-dark',
+        'flex-fill',
+        'w-25',
+        'p-5'
+    );
 
     btn.addEventListener('click', (e) => {
         btn.style.background = playerColor;
