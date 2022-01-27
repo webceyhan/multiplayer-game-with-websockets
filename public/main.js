@@ -29,7 +29,6 @@ const createPlayer = ({ id, color }) => {
     const div = document.createElement('div');
 
     div.textContent = id;
-    div.style.width = '200px';
     div.style.background = color;
     div.classList.add('list-group-item');
 
@@ -44,7 +43,7 @@ const createBall = (ballId) => {
     btn.textContent = ballId;
     // btn.style.width = '100px';
     // btn.style.height = '100px';
-    btn.classList.add('btn', 'btn-light', 'flex-fill', 'w-25', 'p-5');
+    btn.classList.add('btn', 'btn-secondary', 'border-dark', 'flex-fill', 'w-25', 'p-5');
 
     btn.addEventListener('click', (e) => {
         btn.style.background = playerColor;
@@ -57,7 +56,7 @@ const createBall = (ballId) => {
 
 const initUI = () => {
     // disable controls
-    joinBtn.classList.add('disabled');
+    joinBtn.disabled = true;
 
     // clear div containers
     clearDiv(playersDiv);
@@ -69,7 +68,7 @@ const initUI = () => {
  */
 createBtn.addEventListener('click', (e) => {
     sendMessage('create');
-    joinBtn.classList.remove('disabled');
+    joinBtn.disabled = false;
 });
 
 joinBtn.addEventListener('click', (e) => {
@@ -111,10 +110,10 @@ ws.onmessage = (message) => {
         case 'join': {
             initUI();
             const game = event.payload;
-            console.log(game)
+            console.log(game);
 
             gameId = game.id;
-            
+
             game.players.forEach((player) => {
                 // set own color
                 if (player.id == playerId) {
