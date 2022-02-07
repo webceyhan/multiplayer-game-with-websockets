@@ -1,17 +1,26 @@
 {
-  "name": "multiplayer-game-with-websockets",
+  "name": "multiplayer-ball-game",
   "version": "1.0.0",
   "description": "",
   "main": "dist",
+  "author": "Evren Ceyhan",
+  "keywords": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webceyhan/multiplayer-ball-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webceyhan/multiplayer-ball-game/issues"
+  },
+  "homepage": "https://github.com/webceyhan/multiplayer-ball-game#readme",
   "scripts": {
     "start": "ts-node src/main.ts",
     "dev": "ts-node-dev --respawn src/main.ts",
-    "clean": "rm -rf dist",
-    "build": "npm run clean & tsc",
+    "build": "npm run build:clean & tsc",
+    "build:clean": "rm -rf dist",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
     "uuid": "^8.3.2",
