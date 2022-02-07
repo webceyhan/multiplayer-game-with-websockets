@@ -16,14 +16,11 @@ Vue.createApp({
         canCreate() {
             return this.availableGames.length === 0;
         },
-        ready() {
-            return !!this.game.id;
-        },
-        joined() {
-            return this.players.findIndex((p) => p.id === this.player.id) > -1;
-        },
         players() {
             return this.game.players || [];
+        },        
+        joined() {
+            return this.game?.id;
         },
         balls() {
             const amount = 20;
