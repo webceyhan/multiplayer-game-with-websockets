@@ -5,7 +5,7 @@
 
 <!-- LOGO (OPTIONAL) -->
 
-<img src="./src/assets/logo.png" width="100px">
+<!-- <img src="./src/assets/logo.png" width="100px"> -->
 
  <!-- HEADER ///////////////////////////////////////////////////////////// -->
 
