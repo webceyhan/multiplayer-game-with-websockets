@@ -3,6 +3,7 @@ const createAPI = (port = location.port) => {
     const state = Vue.reactive({
         games: [],
         game: {},
+        player: {}
     });
 
     // create new socket connection
