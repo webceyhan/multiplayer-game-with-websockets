@@ -1,9 +1,9 @@
 import { Server } from 'ws';
-import { createClient } from './socket/client';
+import { createClient } from './client';
 
-export const createSocketServer = (port = 9090) => {
+export const createSocketServer = (httpServer: any) => {
     // create websocket server
-    const wss = new Server({ port });
+    const wss = new Server({ server: httpServer });
 
     // define server handler
     wss.on('connection', (ws) => createClient(ws, wss));
@@ -13,11 +13,6 @@ export const createSocketServer = (port = 9090) => {
 
     // define error handler
     wss.on('error', (error) => console.log(`wss error: ${error}`));
-
-    // define listen handler
-    wss.on('listening', () =>
-        console.log(`wss started at ws://localhost:${port}`)
-    );
 
     return wss;
 };

@@ -1,2 +1,2 @@
 export { createHttpServer } from './http';
-export { createSocketServer } from './socket';
+export { createSocketServer } from './socket/server';

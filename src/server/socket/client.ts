@@ -6,12 +6,8 @@ export const createClient = (ws: WebSocket, wss: Server) => {
     // create new player
     const player = new Player();
 
-    // create new payload and send
-    emitEvent(ws, 'connect', player);
-
-    // define event listeners
-    ws.on('open', () => console.log('opened!'));
-    ws.on('close', () => console.log('closed!'));
+    // send player info and available games
+    emitEvent(ws, 'connect', { player, games: Game.all });
 
     ws.on('message', (message) => {
         // when message received from the client
