@@ -2,7 +2,6 @@ const createAPI = (port = location.port) => {
     // eslint-disable-next-line no-undef
     const state = Vue.reactive({
         games: [],
-        player: {},
         game: {},
     });
 
