@@ -8,10 +8,7 @@ Vue.createApp({
     },
     computed: {
         availableGames() {
-            if (this.games?.length) {
-                return this.games.filter((game) => game.players.length < 3);
-            }
-            return [];
+            return this.games.filter((game) => game.players.length < 3);
         },
         canCreate() {
             return this.availableGames.length === 0;
