@@ -24,13 +24,18 @@ const createAPI = (port = location.port) => {
                 break;
 
             case 'create':
-                state.game = payload.game;
                 state.games = payload.games;
                 console.log(`game created" ${state.game.id} `);
                 break;
 
             case 'join':
                 state.game = payload;
+                console.log(`player joined the game: ${state.game.id}`);
+                break;
+
+            case 'leave':
+                state.game = {};
+                state.games = payload;
                 console.log(`player joined the game: ${state.game.id}`);
                 break;
 

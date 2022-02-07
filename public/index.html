@@ -45,7 +45,11 @@
                         <span class="badge badge-primary badge-pill">
                             Players: {{game.players.length}}
                         </span>
-                        <button type="button" class="btn btn-primary" disabled>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="onLeave(game.id)"
+                        >
                             Leave
                         </button>
                     </li>

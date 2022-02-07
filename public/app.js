@@ -18,7 +18,7 @@ Vue.createApp({
         },
         players() {
             return this.game.players || [];
-        },        
+        },
         joined() {
             return this.game?.id;
         },
@@ -41,6 +41,9 @@ Vue.createApp({
         },
         onJoin(gameId) {
             api.emit('join', { gameId });
+        },
+        onLeave(gameId) {
+            api.emit('leave', { gameId });
         },
         onPlay(ballId) {
             api.emit('play', { gameId: this.game.id, ballId });
