@@ -19,7 +19,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
             case 'create': {
                 const game = Game.create();
 
-                emitEvent(ws, 'create', game);
+                emitEvent(ws, 'create', { game, games: Game.all });
                 break;
             }
 

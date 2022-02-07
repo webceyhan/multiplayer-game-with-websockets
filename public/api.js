@@ -1,8 +1,9 @@
-const createAPI = (port = 9090) => {
+const createAPI = (port = location.port) => {
     // eslint-disable-next-line no-undef
     const state = Vue.reactive({
-        game: {},
+        games: [],
         player: {},
+        game: {},
     });
 
     // create new socket connection
@@ -18,12 +19,14 @@ const createAPI = (port = 9090) => {
 
         switch (name) {
             case 'connect':
-                state.player = payload;
+                state.player = payload.player;
+                state.games = payload.games;
                 console.log(`client created: ${state.player.id}`);
                 break;
 
             case 'create':
-                state.game = payload;
+                state.game = payload.game;
+                state.games = payload.games;
                 console.log(`game created" ${state.game.id} `);
                 break;
 
