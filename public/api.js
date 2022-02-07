@@ -3,7 +3,7 @@ const createAPI = (port = location.port) => {
     const state = Vue.reactive({
         games: [],
         game: {},
-        player: {}
+        player: {},
     });
 
     // create new socket connection
@@ -18,15 +18,19 @@ const createAPI = (port = location.port) => {
         const { name, payload } = parse(message);
 
         switch (name) {
-            case 'connect':
-                state.player = payload.player;
-                state.games = payload.games;
-                console.log(`client created: ${state.player.id}`);
+            case 'update-games':
+                state.games = payload;
                 break;
 
-            case 'create':
-                state.games = payload.games;
-                console.log(`game created" ${state.game.id} `);
+            case 'update-game':
+                if (state.game.id === payload.id) {
+                    state.game = payload;
+                }
+                break;
+
+            case 'connect':
+                state.player = payload;
+                console.log(`client created: ${state.player.id}`);
                 break;
 
             case 'join':
@@ -35,16 +39,9 @@ const createAPI = (port = location.port) => {
                 break;
 
             case 'leave':
-                state.game = {};
-                state.games = payload;
-                console.log(`player joined the game: ${state.game.id}`);
+                state.game = {};                
+                console.log(`player left the game`);
                 break;
-
-            case 'play': {
-                state.game = payload;
-                console.log('ball state change: ', state.game.state);
-                break;
-            }
         }
     };
 

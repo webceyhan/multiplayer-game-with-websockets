@@ -7,7 +7,8 @@ export const createClient = (ws: WebSocket, wss: Server) => {
     const player = new Player();
 
     // send player info and available games
-    emitEvent(ws, 'connect', { player, games: Game.all });
+    emitEvent(ws, 'connect', player);
+    emitEvent(ws, 'update-games', Game.all);
 
     ws.on('close', () => {
         // remove player from all games
@@ -23,7 +24,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
             case 'create': {
                 Game.create();
 
-                broadcastEvent(wss, 'create', { games: Game.all });
+                broadcastEvent(wss, 'update-games', Game.all);
                 break;
             }
 
@@ -34,7 +35,8 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
                     game?.addPlayer(player);
 
-                    broadcastEvent(wss, 'join', game);
+                    emitEvent(ws, 'join', game); // self
+                    broadcastEvent(wss, 'update-game', game); // room
                 } catch (error) {
                     console.log((error as any).message);
                 }
@@ -49,7 +51,9 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
                     game?.removePlayer(player);
 
-                    broadcastEvent(wss, 'leave', Game.all);
+                    emitEvent(ws, 'leave'); // self
+                    broadcastEvent(wss, 'update-game', game); // room
+                    broadcastEvent(wss, 'update-games', Game.all); // all
                 } catch (error) {
                     console.log((error as any).message);
                 }
@@ -63,7 +67,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
                 game?.play(player.id, ballId);
 
-                broadcastEvent(wss, 'play', game);
+                broadcastEvent(wss, 'update-game', game);
                 break;
             }
         }
