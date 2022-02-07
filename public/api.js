@@ -1,4 +1,4 @@
-const createAPI = (port = location.port) => {
+const createAPI = () => {
     // eslint-disable-next-line no-undef
     const state = Vue.reactive({
         games: [],
@@ -6,8 +6,10 @@ const createAPI = (port = location.port) => {
         player: {},
     });
 
+    const url = location.origin.replace(/^http/, 'ws');
+
     // create new socket connection
-    const ws = new WebSocket(`ws://localhost:${port}`);
+    const ws = new WebSocket(url);
 
     // define event helpers
     const parse = (message) => JSON.parse(message.data);
