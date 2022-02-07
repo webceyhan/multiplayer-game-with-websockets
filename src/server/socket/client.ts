@@ -35,6 +35,21 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
                 break;
             }
+                
+            case 'leave': {
+                try {
+                    const { gameId } = event.payload;
+                    const game = Game.find(gameId);
+
+                    game?.removePlayer(player);
+
+                    broadcastEvent(wss, 'leave', Game.all);
+                } catch (error) {
+                    console.log((error as any).message);
+                }
+
+                break;
+            }
 
             case 'play': {
                 const { gameId, ballId } = event.payload;

@@ -22,6 +22,12 @@ export class Player {
         this.number = players.length; // assing nr
     }
 
+    leave(players: Player[]) {
+        const index = players.indexOf(this);
+        players.splice(index, 1); // remove
+        this.number = 0; // reset
+    }
+
     toJSON() {
         return {
             ...this,

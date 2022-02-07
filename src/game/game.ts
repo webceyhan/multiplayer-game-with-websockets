@@ -40,6 +40,14 @@ export class Game {
         player.join(this.players);
     }
 
+    removePlayer(player: Player): void {
+        if (!this.hasPlayer(player)) {
+            throw 'player is not in game';
+        }
+
+        player.leave(this.players);
+    }
+
     play(playerId: string, ballId: number): void {
         // update state
         this.state[`${ballId}`] = this.findPlayer(playerId).color;
