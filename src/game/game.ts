@@ -41,11 +41,9 @@ export class Game {
     }
 
     removePlayer(player: Player): void {
-        if (!this.hasPlayer(player)) {
-            throw 'player is not in game';
+        if (this.hasPlayer(player)) {
+            player.leave(this.players);
         }
-
-        player.leave(this.players);
     }
 
     play(playerId: string, ballId: number): void {
