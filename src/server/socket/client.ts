@@ -9,6 +9,12 @@ export const createClient = (ws: WebSocket, wss: Server) => {
     // send player info and available games
     emitEvent(ws, 'connect', { player, games: Game.all });
 
+    ws.on('close', () => {
+        // remove player from all games
+        Game.all.forEach((game) => game.removePlayer(player));
+        broadcastEvent(wss, 'leave', Game.all);
+    });
+
     ws.on('message', (message) => {
         // when message received from the client
         const event = parseEvent(message);
@@ -35,7 +41,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
                 break;
             }
-                
+
             case 'leave': {
                 try {
                     const { gameId } = event.payload;
