@@ -13,8 +13,6 @@ export const createClient = (ws: WebSocket, wss: Server) => {
         // when message received from the client
         const event = parseEvent(message);
 
-        console.log(event);
-
         switch (event.name) {
             case 'create': {
                 const game = Game.create();
@@ -28,7 +26,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
                     const { gameId } = event.payload;
                     const game = Game.find(gameId);
 
-                    game.addPlayer(player);
+                    game?.addPlayer(player);
 
                     broadcastEvent(wss, 'join', game);
                 } catch (error) {
@@ -42,7 +40,7 @@ export const createClient = (ws: WebSocket, wss: Server) => {
                 const { gameId, ballId } = event.payload;
                 const game = Game.find(gameId);
 
-                game.play(player.id, ballId);
+                game?.play(player.id, ballId);
 
                 broadcastEvent(wss, 'play', game);
                 break;

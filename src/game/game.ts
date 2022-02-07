@@ -2,7 +2,7 @@ import { Hash, uuid } from '../utils';
 import { Player, MAX_PLAYERS } from './player';
 
 export class Game {
-    static all: Hash<Game> = {};
+    static all: Game[] = [];
 
     constructor(
         public id = uuid(),
@@ -50,12 +50,12 @@ export class Game {
     static create(): Game {
         const game = new Game();
 
-        Game.all[game.id] = game;
+        Game.all.push(game);
 
         return game;
     }
 
-    static find(id: string): Game {
-        return Game.all[id];
+    static find(id: string): Game | undefined {
+        return Game.all.find((g) => g.id == id);
     }
 }
