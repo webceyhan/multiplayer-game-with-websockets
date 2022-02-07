@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/webceyhan/multiplay-ball-game#readme",
   "scripts": {
-    "start": "ts-node dist/main.js",
+    "start": "node dist/main.js",
     "dev": "ts-node-dev --respawn src/main.ts",
     "build": "npm run build:clean & tsc",
     "build:clean": "rm -rf dist",
