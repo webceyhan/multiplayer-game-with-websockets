@@ -21,9 +21,9 @@ export const createClient = (ws: WebSocket, wss: Server) => {
 
         switch (event.name) {
             case 'create': {
-                const game = Game.create();
+                Game.create();
 
-                emitEvent(ws, 'create', { game, games: Game.all });
+                broadcastEvent(wss, 'create', { games: Game.all });
                 break;
             }
 
