@@ -7,10 +7,19 @@ Vue.createApp({
         return api.state;
     },
     computed: {
+        availableGames() {
+            if (this.games?.length) {
+                return this.games.filter((game) => game.players.length < 3);
+            }
+            return [];
+        },
+        canCreate() {
+            return this.availableGames.length === 0;
+        },
         ready() {
             return !!this.game.id;
         },
-        started() {
+        joined() {
             return this.players.findIndex((p) => p.id === this.player.id) > -1;
         },
         players() {
@@ -26,11 +35,15 @@ Vue.createApp({
         },
     },
     methods: {
+        canJoin(gameId) {
+            const game = this.games.find((game) => game.id === gameId);
+            return game?.players.length < 3;
+        },
         onCreate() {
             api.emit('create');
         },
-        onJoin() {
-            api.emit('join', { gameId: this.game.id });
+        onJoin(gameId) {
+            api.emit('join', { gameId });
         },
         onPlay(ballId) {
             api.emit('play', { gameId: this.game.id, ballId });

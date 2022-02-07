@@ -18,48 +18,48 @@
 
         <title>Hello, world!</title>
     </head>
+
     <body class="bg-dark text-light">
-        <header class="my-4">
-            <div class="container">
-                <h1 class="display-3">Ball Game</h1>
-
-                <hr class="bg-secondary" />
-            </div>
-        </header>
-
-        <main id="app">
-            <div class="container">
-                <!-- Toolbar -->
-                <div class="btn-toolbar mb-5">
+        <div id="app" class="container">
+            <header class="my-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="display-4">Ball Game</h1>
                     <button
+                        type="button"
                         class="btn btn-lg btn-primary mr-3"
                         @click="onCreate"
-                        :disabled="ready"
+                        :disabled="!canCreate"
                     >
                         Create New Game
                     </button>
-
-                    <div class="input-group input-group-lg flex-fill">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">ID</div>
-                        </div>
-                        <input
-                            class="form-control"
-                            type="text"
-                            v-model="game.id"
-                            disabled
-                        />
-                        <div class="input-group-append">
-                            <button
-                                class="btn btn-primary"
-                                @click="onJoin"
-                                :disabled="!ready || started"
-                            >
-                                Join
-                            </button>
-                        </div>
-                    </div>
                 </div>
+                <hr class="bg-secondary" />
+            </header>
+
+            <main>
+                <ul class="list-group list-group-flush mb-4">
+                    <li
+                        class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between align-items-center"
+                        v-for="game in games"
+                        :key="game.id"
+                        @click="onJoin(game.id)"
+                    >
+                        <span> Game ID: {{game.id}} </span>
+
+                        <span class="badge badge-primary badge-pill">
+                            Players: {{game.players.length}}
+                        </span>
+
+                        <button
+                        type="button"
+                            class="btn btn-primary"
+                            @click="onJoin(game.id)"
+                            :disabled="!canJoin(game.id)"
+                        >
+                            Join
+                        </button>
+                    </li>
+                </ul>
 
                 <!-- Players -->
                 <section class="mb-5">
@@ -89,17 +89,17 @@
                             :key="i"
                             :style="{background: color}"
                             @click="onPlay(i)"
-                            :disabled="!started"
+                            :disabled="!joined"
                         >
                             {{i + 1}}
                         </button>
                     </div>
                 </section>
-            </div>
-        </main>
+            </main>
+        </div>
 
         <!-- VueJs -->
-        <script src="https://unpkg.com/vue@next"></script>        
+        <script src="https://unpkg.com/vue@next"></script>
         <script src="api.js"></script>
         <script src="app.js"></script>
     </body>
