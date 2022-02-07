@@ -1,5 +1,5 @@
 {
-  "name": "multiplayer-ball-game",
+  "name": "multiplay-ball-game",
   "version": "1.0.0",
   "description": "",
   "main": "dist",
@@ -8,12 +8,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webceyhan/multiplayer-ball-game.git"
+    "url": "git+https://github.com/webceyhan/multiplay-ball-game.git"
   },
   "bugs": {
-    "url": "https://github.com/webceyhan/multiplayer-ball-game/issues"
+    "url": "https://github.com/webceyhan/multiplay-ball-game/issues"
   },
-  "homepage": "https://github.com/webceyhan/multiplayer-ball-game#readme",
+  "homepage": "https://github.com/webceyhan/multiplay-ball-game#readme",
   "scripts": {
     "start": "ts-node src/main.ts",
     "dev": "ts-node-dev --respawn src/main.ts",
