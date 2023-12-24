@@ -1,19 +1,6 @@
 {
   "name": "multiplay-ball-game",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist",
-  "author": "Evren Ceyhan",
-  "keywords": [],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webceyhan/multiplay-ball-game.git"
-  },
-  "bugs": {
-    "url": "https://github.com/webceyhan/multiplay-ball-game/issues"
-  },
-  "homepage": "https://github.com/webceyhan/multiplay-ball-game#readme",
+  "private": true,
   "scripts": {
     "start": "node dist/main.js",
     "dev": "ts-node-dev --respawn src/main.ts",
