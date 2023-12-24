@@ -1,7 +1,7 @@
 <!-- AUTOMATION BADGES -->
 
-[![CodeQL](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/codeql-analysis.yml)
-[![Deploy to Heroku](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/heroku.yml/badge.svg)](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/heroku.yml)
+[![CodeQL](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/webceyhan/multiplay-ball-game/actions/workflows/github-code-scanning/codeql)
+
 
 <!-- LOGO (OPTIONAL) -->
 
@@ -20,10 +20,6 @@ Backend server was implemented using ExpressJs to serve the compiled frontend ap
 Frontend application is built with Vue 3 + Bootstrap. Client is automatically connected to the server and getting the list of available games to join from.
 There is maximum of 3 players in a game. Players can join and leave the game.
 
-[View Demo](https://webceyhan-chat-app.herokuapp.com/) |
-[Report Issue](https://github.com/webceyhan/multiplay-ball-game/issues) |
-[Request Feature](https://github.com/webceyhan/multiplay-ball-game/pulls) |
-[@webceyhan](https://twitter.com/webceyhan)
 
 <br>
 <!-- REQUIREMENTS /////////////////////////////////////////////////////// -->
@@ -94,29 +90,11 @@ npm run build
 <br>
 <!-- DEPLOYMENT ////////////////////////////////////////////////////////// -->
 
-## Deployment (Heroku)
+## Deployment (Render)
 
-A GitHub Action will automatically deploy the project to Heroku on every push. 
-> See the details in [.github/workflows/heroku.yml](./.github/workflows/heroku.yml)
+Project is linked to [Render](https://render.com/) for deployment.
 
-1. Create an [Heroku](https://www.heroku.com/home) account.
-
-2. Install the `heroku-cli` as shown in the [guide](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli).
-
-3. Create a new Heroku app inside the project folder to bind it.
-
-    ```sh
-    heroku create
-    ```
-
-    > This will create a new application on Heroku server and bind it to your project by adding a remote `heroku` upstream to your git repository.
-
-4. Set the following secrets on your Github repository:
-    ```sh
-    HEROKU_API_KEY
-    HEROKU_APP_NAME
-    HEROKU_EMAIL
-    ```
+>It will automatically deploy the project to Render on every push.
 
 <br>
 <!-- REFERENCES ////////////////////////////////////////////////////////// -->
@@ -128,6 +106,3 @@ A GitHub Action will automatically deploy the project to Heroku on every push.
 -   [Bootstrap](https://getbootstrap.com)
 -   [Express](https://expressjs.com/)
 -   [WebSocket (WS)](https://github.com/websockets/ws)
--   [GitHub Actions](https://docs.github.com/en/actions)
-    -   [Heroku](https://www.heroku.com)
-    -   [heroku-deploy](https://github.com/akhileshns/heroku-deploy@)
