@@ -1,4 +1,4 @@
-import { Hash, uuid } from '../utils';
+import { uuid } from '../utils';
 import { Player, MAX_PLAYERS } from './player';
 
 export class Game {
@@ -6,7 +6,7 @@ export class Game {
 
     constructor(
         public id = uuid(),
-        public state: Hash = {},
+        public state: Record<string, any> = {},
         public players: Player[] = [],
         public balls = 20
     ) {}
